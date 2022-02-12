@@ -1,0 +1,152 @@
+.auth_page {
+  min-height: 100vh;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  &_abstracts {
+    background: #110d24;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 3em;
+    padding-top: 3em;
+
+    &-logo {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &-content {
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+
+      h2 {
+        font-weight: bold;
+        font-size: 3em;
+        line-height: 65px;
+        letter-spacing: 0.02em;
+        width: 75%;
+      }
+
+      h4 {
+        font-size: 1.5em;
+        line-height: 33px;
+        letter-spacing: 0.02em;
+        width: 75%;
+        margin-top: 1em;
+      }
+    }
+
+    &-illustration {
+      height: 300px;
+      display: flex;
+      justify-content: flex-end;
+
+      svg {
+        height: 300px;
+      }
+    }
+  }
+
+  &_form {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    overflow-y: auto;
+
+    form {
+      max-width: 350px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+
+      > .form > div {
+        margin-bottom: 1em;
+      }
+
+      .form_input {
+        width: 100%;
+        input {
+          outline: none;
+          background: #ececec;
+          border: 1px solid #ccbfbf;
+          box-sizing: border-box;
+          border-radius: 5px;
+          padding: 10px 15px;
+          font-size: 1em;
+          line-height: 24px;
+          color: #000;
+          width: 100%;
+
+          &::placeholder {
+            font-size: 14px;
+            line-height: 22px;
+            color: #929292;
+          }
+        }
+      }
+
+      .wallet_Input {
+        .group {
+          display: flex;
+          align-items: center;
+          background: #ececec;
+          border: 1px solid #ccbfbf;
+          box-sizing: border-box;
+          border-radius: 5px;
+          padding: 10px 15px;
+          grid-gap: 1em;
+
+          input {
+            outline: none;
+            background: #ececec;
+            border: none;
+            font-size: 1em;
+            line-height: 24px;
+            color: #000;
+            width: 100%;
+          }
+        }
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    .error_input {
+      font-size: 14px;
+      line-height: 22px;
+      color: tomato;
+      margin-top: 5px;
+      padding-left: 1em;
+    }
+
+    .form_footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2em;
+
+      p {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22px;
+        color: #989191;
+      }
+
+      a {
+        color: var(--primary);
+        font-size: 1em;
+        line-height: 24px;
+      }
+    }
+  }
+}

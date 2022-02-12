@@ -1,0 +1,107 @@
+.profile_container {
+  background: linear-gradient(
+    171.87deg,
+    #ffa624 6.25%,
+    rgba(253, 166, 36, 0.22) 35.86%,
+    rgba(17, 13, 36, 0.18) 62.7%,
+    rgba(17, 13, 36, 0) 82.15%
+  );
+  height: 100vh;
+  overflow-y: auto;
+  max-width: 300px;
+  width: 100%;
+  position: relative;
+  transition: left 250ms ease-in-out;
+
+  @media (max-width: 800px) {
+    position: fixed;
+    left: -300px;
+    z-index: 100;
+    background: linear-gradient(
+      171.87deg,
+      #ffa624 6.25%,
+      rgba(253, 166, 36, 0.9) 35.86%,
+      rgba(17, 13, 36, 0.9) 62.7%,
+      rgba(17, 13, 36, 0.8) 82.15%
+    );
+  }
+
+  &.active {
+    left: 0;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &_logo {
+    display: flex;
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .userProfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    > .avatar {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  .userlinks {
+    display: flex;
+    flex-direction: column;
+
+    .profile_link {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1em;
+
+      span {
+        font-size: 1em;
+        line-height: 30px;
+        color: var(--text-white);
+        margin-left: 1em;
+      }
+    }
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 90;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease-out;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  &.active {
+    opacity: 0;
+    visibility: hidden;
+
+    @media (max-width: 800px) {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

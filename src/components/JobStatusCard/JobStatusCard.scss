@@ -1,0 +1,41 @@
+.job_card_wrapper {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 10px;
+  margin-top: 3em;
+
+  .job_card {
+    padding: 1.5em;
+
+    &_grid {
+      display: grid;
+      grid-template-columns: 40px auto;
+      grid-gap: 1em;
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .card_content {
+        display: flex;
+        flex-direction: column;
+
+        &-details {
+          h5 {
+            font-weight: 600;
+            font-family: var(--font-bold);
+            font-size: 1em;
+            line-height: 24px;
+          }
+          > p {
+            color: var(--text-secondary);
+          }
+        }
+      }
+    }
+  }
+}
