@@ -1,12 +1,12 @@
 import Web3 from "web3";
 import { AbiItem } from "web3-utils";
 import { TradeProps } from "../store/types";
-import paypalabi from "./abi/bloackplace.json";
+import paypalabi from "./abi/blockplace.json";
 
 const { ethereum } = window as any;
 
 const web3 = new Web3(ethereum);
-const paypaladdress = "0xF9d6F4FBd47E3E638ce5301fAe5E14E64505Ced6";
+const paypaladdress = "0x439956bD07d991011838FDF1Bc0E3629e32bE165";
 
 const paypal = new web3.eth.Contract(paypalabi as AbiItem[], paypaladdress);
 
@@ -34,6 +34,12 @@ export const tradeDetails = async (id) => {
 
 export const getId = async (address: string) => {
   return await paypal.methods.getId(address).call();
+};
+
+export const cancelTrade = async (tokenId: string) => {
+  await paypal.methods.cancelTrade(tokenId).send({
+    from: ethereum?.selectedAddress,
+  });
 };
 
 export const getPendingTrades = async (address: string) => {
@@ -76,9 +82,41 @@ export const getCompletedTrades = async (address: string) => {
         };
       })
     );
-    console.log(result);
 
     return result.filter((f) => f.status === "2");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getOwner = async () => {
+  return await paypal.methods.owneraddress().call();
+};
+
+const totalId = async () => {
+  return Number(await paypal.methods.id().call());
+};
+
+export const getAllPendingTrades = async () => {
+  try {
+    const tradeIds: number = await totalId();
+
+    const result = await Promise.all(
+      Array.from({ length: tradeIds }).map(async (_, id) => {
+        const details: TradeProps = await tradeDetails(id);
+
+        return {
+          amount: web3.utils.fromWei(details.amount),
+          creator: details.creator,
+          trader: details.trader,
+          title: details.title,
+          id: details.id,
+          status: details.status,
+        };
+      })
+    );
+
+    return result.filter((f) => f.status === "0");
   } catch (error) {
     console.log(error);
   }

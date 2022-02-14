@@ -6,3 +6,9 @@ export interface TradeProps {
   id: string;
   status: string;
 }
+
+export interface ProgressProps {
+  loading: boolean;
+  type: "loading" | "success" | "error";
+  message: string;
+}

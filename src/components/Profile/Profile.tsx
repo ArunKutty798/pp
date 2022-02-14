@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import "./Profile.scss";
 import logo from "../../assets/abstracts/logo.png";
@@ -7,11 +7,12 @@ import profile from "../../assets/images/profile.png";
 import { ReactComponent as Pending } from "../../assets/icons/pending.svg";
 import { ReactComponent as Complete } from "../../assets/icons/complete.svg";
 import { ReactComponent as Hire } from "../../assets/icons/hire.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "..";
 import jwtDecode from "jwt-decode";
 import { getUserApi } from "../../api";
 import { UserContext } from "../../store/UserContext";
+import { getOwner } from "../../utils/methods";
 
 interface ProfileProps {
   openSidebar: boolean;
@@ -20,6 +21,9 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = ({ openSidebar, setOpenSidebar }) => {
   const { userData, setUserData } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [ownerAddress, setOwnerAddress] = useState<string | null>(null);
+
   const handleGetUser = useCallback(async () => {
     const token = localStorage.getItem("token");
 
@@ -27,6 +31,7 @@ const Profile: React.FC<ProfileProps> = ({ openSidebar, setOpenSidebar }) => {
       try {
         const jwtData: any = jwtDecode(token);
         const { data } = await getUserApi(jwtData?.id);
+        setOwnerAddress(await getOwner());
         setUserData({
           id: data._id,
           userAccount: data.account,
@@ -75,7 +80,22 @@ const Profile: React.FC<ProfileProps> = ({ openSidebar, setOpenSidebar }) => {
         <Complete />
         <span>Completed job </span>
       </Link>
+      {ownerAddress?.toLocaleLowerCase() === userData?.userAccount?.toLocaleLowerCase() && (
+        <Button onClick={() => navigate("/admin")} style={{ marginBottom: 15 }}>
+          Admin settings
+        </Button>
+      )}
       <Button>Report issues</Button>
+      <Button
+        variant="secondary"
+        style={{ marginTop: 15 }}
+        onClick={() => {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }}
+      >
+        Logout
+      </Button>
     </div>
   );
 

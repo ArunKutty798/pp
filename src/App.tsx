@@ -1,8 +1,9 @@
+import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { Header, Profile } from "./components";
 import { useEagerConnect } from "./hooks/useEagerConnect";
-import { CompletedProject, PendingProject, SignIn, SignUp } from "./pages";
+import { Admin, CompletedProject, PendingProject, SignIn, SignUp } from "./pages";
 import { CreateProject } from "./pages";
 
 const App: React.FC = () => {
@@ -13,11 +14,15 @@ const App: React.FC = () => {
   useEagerConnect();
 
   useEffect(() => {
-    const data = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-    if (data) {
-      setIsUser("user");
-      navigate("/");
+    if (token) {
+      try {
+        jwtDecode(token);
+        setIsUser("user");
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       setIsUser("guest");
       navigate("/login");
@@ -52,6 +57,7 @@ const App: React.FC = () => {
               <Route path="/" element={<CreateProject />} />
               <Route path="/completed-project" element={<CompletedProject />} />
               <Route path="/pending-project" element={<PendingProject />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
           </div>
         </div>
