@@ -31,13 +31,13 @@ const Profile: React.FC<ProfileProps> = ({ openSidebar, setOpenSidebar }) => {
       try {
         const jwtData: any = jwtDecode(token);
         const { data } = await getUserApi(jwtData?.id);
-        setOwnerAddress(await getOwner());
         setUserData({
           id: data._id,
           userAccount: data.account,
           email: data.email,
           username: data.username,
         });
+        setOwnerAddress(await getOwner());
       } catch (error) {
         console.log(error);
       }
@@ -80,11 +80,12 @@ const Profile: React.FC<ProfileProps> = ({ openSidebar, setOpenSidebar }) => {
         <Complete />
         <span>Completed job </span>
       </Link>
-      {ownerAddress?.toLocaleLowerCase() === userData?.userAccount?.toLocaleLowerCase() && (
-        <Button onClick={() => navigate("/admin")} style={{ marginBottom: 15 }}>
-          Admin settings
-        </Button>
-      )}
+      {ownerAddress &&
+        ownerAddress.toLocaleLowerCase() === userData?.userAccount?.toLocaleLowerCase() && (
+          <Button onClick={() => navigate("/admin")} style={{ marginBottom: 15 }}>
+            Admin settings
+          </Button>
+        )}
       <Button>Report issues</Button>
       <Button
         variant="secondary"

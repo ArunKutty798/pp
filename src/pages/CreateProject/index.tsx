@@ -71,6 +71,11 @@ const CreateProject: React.FC = () => {
   };
 
   const handleConnect = async () => {
+    const { ethereum } = window as any;
+    if (!ethereum) {
+      alert("Install metamask extension in your browser");
+      return;
+    }
     setProgress({
       loading: true,
       message: "Metamask wallet is connecting...",
@@ -81,10 +86,7 @@ const CreateProject: React.FC = () => {
       setProgress({ ...progress, loading: false });
     } catch (error) {
       console.log(error);
-      setProgress({ loading: true, message: "Transaction cancelled", type: "error" });
-      setTimeout(() => {
-        setProgress({ ...progress, loading: false });
-      }, 3000);
+      setProgress({ ...progress, loading: false });
     }
   };
 

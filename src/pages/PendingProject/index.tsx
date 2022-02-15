@@ -22,6 +22,11 @@ const PendingProject: React.FC = () => {
   }, [handleGetPendingTrades]);
 
   const handleConnect = async () => {
+    const { ethereum } = window as any;
+    if (!ethereum) {
+      alert("Install metamask extension in your browser");
+      return;
+    }
     try {
       await activate(Injected);
     } catch (error) {
