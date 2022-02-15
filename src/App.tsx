@@ -14,7 +14,7 @@ const App: React.FC = () => {
   useEagerConnect();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("blockplace_id");
 
     if (token) {
       try {
@@ -58,6 +58,8 @@ const App: React.FC = () => {
               <Route path="/completed-project" element={<CompletedProject />} />
               <Route path="/pending-project" element={<PendingProject />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/login" element={<Navigate to="/" />} />
+              <Route path="/signup" element={<Navigate to="/" />} />
             </Routes>
           </div>
         </div>

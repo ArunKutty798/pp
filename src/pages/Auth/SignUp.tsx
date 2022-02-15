@@ -47,7 +47,7 @@ const SignUp: React.FC = () => {
         alert(data.message);
         return;
       }
-      localStorage.setItem("token", data);
+      localStorage.setItem("blockplace_id", data);
       window.location.href = "/";
     } catch (error) {
       console.log(error);

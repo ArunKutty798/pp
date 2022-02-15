@@ -22,7 +22,6 @@ const SignIn: React.FC = () => {
   });
 
   const handleSubmit = async (values) => {
-    console.log(values);
     setLoading(true);
     try {
       const { data } = await signInApi(values);
@@ -30,7 +29,7 @@ const SignIn: React.FC = () => {
         alert(data.message);
         return;
       }
-      localStorage.setItem("token", data);
+      localStorage.setItem("blockplace_id", data);
       window.location.href = "/";
     } catch (error) {
       console.log(error);
@@ -73,7 +72,9 @@ const SignIn: React.FC = () => {
                   <Field type="password" name="password" placeholder="Password" />
                   <ErrorMessage name="password" className="error_input" component="div" />
                 </div>
-                <Button disabled={loading}>Login</Button>
+                <Button type="submit" disabled={loading}>
+                  Login
+                </Button>
               </div>
               <div className="form_footer">
                 <p>Don\'t have an account?</p>

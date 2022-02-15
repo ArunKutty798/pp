@@ -25,7 +25,7 @@ const Profile: React.FC<ProfileProps> = ({ openSidebar, setOpenSidebar }) => {
   const [ownerAddress, setOwnerAddress] = useState<string | null>(null);
 
   const handleGetUser = useCallback(async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("blockplace_id");
 
     if (token) {
       try {
@@ -90,7 +90,7 @@ const Profile: React.FC<ProfileProps> = ({ openSidebar, setOpenSidebar }) => {
         variant="secondary"
         style={{ marginTop: 15 }}
         onClick={() => {
-          localStorage.removeItem("token");
+          localStorage.removeItem("blockplace_id");
           window.location.href = "/login";
         }}
       >
